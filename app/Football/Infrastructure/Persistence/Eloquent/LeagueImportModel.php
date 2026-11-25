@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace App\Football\Infrastructure\Persistence\Eloquent;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property Carbon|null $finished_at
+ */
 class LeagueImportModel extends Model
 {
     protected $table = 'league_imports';

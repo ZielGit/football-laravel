@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace App\Football\Infrastructure\Persistence\Eloquent;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property Carbon|null $date_of_birth
+ */
 class PlayerModel extends Model
 {
     protected $table = 'players';

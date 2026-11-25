@@ -20,7 +20,7 @@ class AuthService
         $user = User::query()->where('email', $email)->first();
 
         // Se compara siempre contra un hash para no revelar si el correo existe.
-        $hash = $user?->password ?? '$2y$12$usesomesillystringforsaltfoeP5sJ5ZCvDk0ob6dUvL1G0mV6Q2e';
+        $hash = $user->password ?? '$2y$12$usesomesillystringforsaltfoeP5sJ5ZCvDk0ob6dUvL1G0mV6Q2e';
 
         if (! Hash::check($password, $hash) || $user === null) {
             throw new InvalidCredentialsException;
@@ -36,12 +36,15 @@ class AuthService
         return [
             'user' => $user,
             'token' => $result->accessToken,
-            'expires_at' => $result->token->expires_at?->toIso8601String(),
+            'expires_at' => $user->tokens()->latest('id')->first()?->expires_at?->toIso8601String(),
         ];
     }
 
     public function logout(User $user): void
     {
-        $user->token()?->revoke();
+        $token = $user->token();
+        if ($token instanceof \Laravel\Passport\Token) {
+            $token->revoke();
+        }
     }
 }
