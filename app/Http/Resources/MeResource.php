@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -10,7 +11,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * "permissions" son los nombres planos y "abilities" el mismo dato en formato
  * { action, subject } (compatible con CASL, pero la SPA puede usar solo "permissions").
  *
- * @mixin \App\Models\User
+ * @mixin User
  */
 class MeResource extends JsonResource
 {
