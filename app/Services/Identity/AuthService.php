@@ -6,6 +6,7 @@ use App\Exceptions\AccountDisabledException;
 use App\Exceptions\InvalidCredentialsException;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Passport\Token;
 
 class AuthService
 {
@@ -43,7 +44,7 @@ class AuthService
     public function logout(User $user): void
     {
         $token = $user->token();
-        if ($token instanceof \Laravel\Passport\Token) {
+        if ($token instanceof Token) {
             $token->revoke();
         }
     }
