@@ -1,6 +1,6 @@
 # football-laravel · API REST (Laravel 13 · PHP 8.5)
 
-API que consulta [football-data.org](https://www.football-data.org), guarda una copia propia (Eloquent + MySQL) y controla **quién puede hacer qué** (Passport + roles y permisos). La SPA vive en el repositorio hermano **[football-vue](../football-vue)**.
+API que consulta [football-data.org](https://www.football-data.org), guarda una copia propia (Eloquent + MySQL) y controla **quién puede hacer qué** (Passport + roles y permisos). La SPA vive en el repositorio hermano **[football-vue](https://github.com/ZielGit/football-vue)**.
 
 ## Contenido
 
