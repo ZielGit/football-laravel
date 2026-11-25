@@ -30,6 +30,9 @@ if [ "$RUN_SETUP" = "true" ]; then
     sleep 3
   done
 
+  # Cliente personal de Passport (no interactivo).
+  php artisan passport:client --personal --name="Football API" --no-interaction
+
   php artisan db:seed --force
   touch storage/app/.setup-done
 else
