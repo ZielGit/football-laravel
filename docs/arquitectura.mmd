@@ -1,0 +1,42 @@
+flowchart LR
+    subgraph Cliente
+        SPA["SPA Vue 3<br/>Vuetify · Pinia · TS"]
+    end
+
+    subgraph API["API Laravel 13 · PHP 8.5"]
+        direction TB
+        PASS["Passport<br/>(Bearer token)"]
+        ACL["ACL Spatie<br/>permission:* middleware"]
+        HTTP["Controllers · FormRequests · Resources"]
+        subgraph APP["Application (CQRS)"]
+            CMD["Commands<br/>ImportCompetition<br/>RequestCompetitionImport<br/>SyncCompetitions"]
+            QRY["Queries<br/>ListTeams · GetTeam<br/>ListPlayers · GetCompetition..."]
+        end
+        DOM["Domain<br/>Competition · Team · Player<br/>Puertos (interfaces)"]
+        subgraph INFRA["Infrastructure (adaptadores)"]
+            REPO["Eloquent repositories"]
+            GW["FootballDataHttpGateway"]
+            RL["FootballDataRateLimiter<br/>10 req/min"]
+        end
+    end
+
+    subgraph Async["Segundo plano"]
+        Q["Queue worker<br/>ImportCompetitionJob<br/>SyncCompetitionsJob"]
+        CRON["Scheduler (cron)<br/>cada hora"]
+    end
+
+    DB[("MySQL")]
+    REDIS[("Redis<br/>cola · caché · limitador")]
+    EXT["football-data.org"]
+
+    SPA -->|"HTTPS + Bearer"| PASS --> ACL --> HTTP
+    HTTP --> QRY
+    HTTP --> CMD
+    QRY --> DOM
+    CMD --> DOM
+    DOM -.puertos.-> REPO --> DB
+    CMD -->|"encola"| REDIS
+    CRON -->|"encola"| REDIS
+    REDIS --> Q --> CMD
+    CMD -.puerto.-> GW --> RL --> EXT
+    RL --- REDIS

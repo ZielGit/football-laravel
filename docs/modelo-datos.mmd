@@ -1,0 +1,69 @@
+erDiagram
+    users ||--o{ model_has_roles : "tiene"
+    roles ||--o{ model_has_roles : ""
+    roles ||--o{ role_has_permissions : ""
+    permissions ||--o{ role_has_permissions : ""
+
+    competitions ||--o{ competition_team : ""
+    teams ||--o{ competition_team : ""
+    teams ||--o{ players : "plantilla"
+    competitions ||--o| league_imports : "estado de importación"
+
+    users {
+        bigint id PK
+        string name
+        string email UK
+        string password "hash"
+        boolean is_active
+        timestamp last_login_at
+    }
+    roles {
+        bigint id PK
+        string name
+        string guard_name "api"
+    }
+    permissions {
+        bigint id PK
+        string name "ej. teams.view"
+        string guard_name "api"
+    }
+    competitions {
+        bigint id PK "id de football-data"
+        string name
+        string code
+        string type
+        string area
+        string emblem
+        timestamp synced_at
+    }
+    teams {
+        bigint id PK "id de football-data"
+        string name
+        string short_name
+        string tla
+        string crest
+        string venue
+        smallint founded
+    }
+    competition_team {
+        bigint competition_id PK,FK
+        bigint team_id PK,FK
+    }
+    players {
+        bigint id PK "id de football-data"
+        bigint team_id FK
+        string name
+        string position
+        smallint shirt_number "nullable"
+        date date_of_birth
+        string nationality
+    }
+    league_imports {
+        bigint competition_id PK
+        string status "queued|running|waiting_rate_limit|completed|failed"
+        string message
+        int retry_after_seconds
+        int teams_imported
+        int players_imported
+        timestamp finished_at
+    }

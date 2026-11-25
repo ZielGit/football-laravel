@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 640" font-family="Segoe UI, Arial, sans-serif" font-size="13">
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#334155"/></marker>
+    <marker id="r" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#b91c1c"/></marker>
+  </defs>
+  <rect width="1100" height="640" fill="#f8fafc"/>
+  <text x="550" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">Arquitectura — football-laravel / football-vue</text>
+
+  <!-- SPA -->
+  <rect x="20" y="230" width="150" height="90" rx="10" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="95" y="262" text-anchor="middle" font-weight="700">SPA Vue 3</text>
+  <text x="95" y="282" text-anchor="middle" font-size="11">Vuetify · Pinia · TS</text>
+  <text x="95" y="300" text-anchor="middle" font-size="11">Router + can()</text>
+
+  <!-- API container -->
+  <rect x="230" y="55" width="560" height="540" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="510" y="80" text-anchor="middle" font-weight="700" fill="#1d4ed8">API Laravel 13 · PHP 8.5 (Nginx + PHP-FPM)</text>
+
+  <rect x="250" y="95" width="520" height="52" rx="8" fill="#fef9c3" stroke="#ca8a04"/>
+  <text x="510" y="117" text-anchor="middle" font-weight="700">Passport (Bearer) → active → permission:* (Spatie)</text>
+  <text x="510" y="136" text-anchor="middle" font-size="11">401 sin sesión · 403 sin permiso · ACL decidida en el servidor</text>
+
+  <rect x="250" y="160" width="520" height="48" rx="8" fill="#fff" stroke="#64748b"/>
+  <text x="510" y="181" text-anchor="middle" font-weight="700">Presentación: Controllers delgados · FormRequests · Resources</text>
+  <text x="510" y="199" text-anchor="middle" font-size="11">Errores JSON uniformes {error:{code,message}}: 404 · 422 · 429 · 502/503</text>
+
+  <rect x="250" y="222" width="250" height="150" rx="8" fill="#fff" stroke="#64748b"/>
+  <text x="375" y="244" text-anchor="middle" font-weight="700">Application (CQRS)</text>
+  <text x="375" y="266" text-anchor="middle" font-size="12">Commands: ImportCompetition,</text>
+  <text x="375" y="283" text-anchor="middle" font-size="12">RequestCompetitionImport,</text>
+  <text x="375" y="300" text-anchor="middle" font-size="12">SyncCompetitions</text>
+  <text x="375" y="322" text-anchor="middle" font-size="12">Queries: ListTeams, GetTeam,</text>
+  <text x="375" y="339" text-anchor="middle" font-size="12">ListPlayers, GetCompetition…</text>
+
+  <rect x="520" y="222" width="250" height="150" rx="8" fill="#fff" stroke="#64748b"/>
+  <text x="645" y="244" text-anchor="middle" font-weight="700">Domain (PHP puro)</text>
+  <text x="645" y="266" text-anchor="middle" font-size="12">Competition · Team · Player</text>
+  <text x="645" y="283" text-anchor="middle" font-size="12">LeagueImport (estado)</text>
+  <text x="645" y="305" text-anchor="middle" font-size="12">Puertos: Repositories,</text>
+  <text x="645" y="322" text-anchor="middle" font-size="12">FootballDataGateway,</text>
+  <text x="645" y="339" text-anchor="middle" font-size="12">excepciones de dominio</text>
+
+  <rect x="250" y="386" width="520" height="195" rx="8" fill="#fff" stroke="#64748b"/>
+  <text x="510" y="408" text-anchor="middle" font-weight="700">Infrastructure (adaptadores)</text>
+  <rect x="265" y="420" width="150" height="50" rx="6" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="340" y="441" text-anchor="middle" font-size="12">Eloquent repositories</text>
+  <text x="340" y="458" text-anchor="middle" font-size="11">+ migraciones</text>
+  <rect x="430" y="420" width="170" height="50" rx="6" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="515" y="441" text-anchor="middle" font-size="12">FootballDataHttpGateway</text>
+  <text x="515" y="458" text-anchor="middle" font-size="11">única clase externa</text>
+  <rect x="615" y="420" width="140" height="50" rx="6" fill="#fee2e2" stroke="#b91c1c"/>
+  <text x="685" y="441" text-anchor="middle" font-size="12" font-weight="700">RateLimiter</text>
+  <text x="685" y="458" text-anchor="middle" font-size="11">10 req / minuto</text>
+  <rect x="265" y="490" width="230" height="75" rx="6" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="380" y="512" text-anchor="middle" font-size="12">Jobs: ImportCompetitionJob,</text>
+  <text x="380" y="529" text-anchor="middle" font-size="12">SyncCompetitionsJob</text>
+  <text x="380" y="548" text-anchor="middle" font-size="11">release(espera) si no hay cupo</text>
+  <rect x="515" y="490" width="240" height="75" rx="6" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="635" y="512" text-anchor="middle" font-size="12">Scheduler (cron cada hora)</text>
+  <text x="635" y="529" text-anchor="middle" font-size="12">football:sync-competitions</text>
+  <text x="635" y="548" text-anchor="middle" font-size="11">+ Worker de cola (queue:work)</text>
+
+  <!-- DB, Redis, external -->
+  <rect x="870" y="110" width="200" height="80" rx="10" fill="#fde68a" stroke="#d97706"/>
+  <text x="970" y="145" text-anchor="middle" font-weight="700">MySQL</text>
+  <text x="970" y="165" text-anchor="middle" font-size="11">copia propia (Eloquent)</text>
+  <rect x="870" y="300" width="200" height="90" rx="10" fill="#fecaca" stroke="#b91c1c"/>
+  <text x="970" y="335" text-anchor="middle" font-weight="700">Redis</text>
+  <text x="970" y="355" text-anchor="middle" font-size="11">cola · caché · contador del límite</text>
+  <text x="970" y="372" text-anchor="middle" font-size="11">(compartido por todos los procesos)</text>
+  <rect x="870" y="470" width="200" height="90" rx="10" fill="#e9d5ff" stroke="#7c3aed"/>
+  <text x="970" y="505" text-anchor="middle" font-weight="700">football-data.org</text>
+  <text x="970" y="525" text-anchor="middle" font-size="11">token gratuito: 10 req/min</text>
+  <text x="970" y="542" text-anchor="middle" font-size="11">token solo en .env</text>
+
+  <!-- arrows -->
+  <line x1="170" y1="275" x2="248" y2="275" stroke="#334155" stroke-width="2" marker-end="url(#a)"/>
+  <text x="209" y="266" text-anchor="middle" font-size="10">Bearer</text>
+  <line x1="770" y1="320" x2="868" y2="150" stroke="#334155" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="770" y1="340" x2="868" y2="340" stroke="#334155" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="755" y1="445" x2="868" y2="510" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#r)"/>
+  <text x="840" y="462" font-size="10" fill="#b91c1c">solo tras obtener cupo</text>
+  <line x1="685" y1="420" x2="940" y2="392" stroke="#b91c1c" stroke-dasharray="5,4" marker-end="url(#r)"/>
+</svg>

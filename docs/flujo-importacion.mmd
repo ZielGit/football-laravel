@@ -1,0 +1,31 @@
+sequenceDiagram
+    autonumber
+    actor U as Editor (SPA)
+    participant API as API Laravel
+    participant R as Redis (cola + limitador)
+    participant W as Worker
+    participant FD as football-data.org
+    participant DB as MySQL
+
+    U->>API: GET /competitions/2021 (competitions.import)
+    API->>DB: ¿importación activa o reciente?
+    API->>DB: registra import = queued
+    API->>R: encola ImportCompetitionJob (único por liga)
+    API-->>U: 200 con lo guardado + import.status = queued
+    loop Polling cada pocos segundos
+        U->>API: GET /competitions/2021/import-status
+        API-->>U: queued / running / waiting_rate_limit
+    end
+    W->>R: toma el Job
+    W->>R: ¿hay cupo? (10 por minuto)
+    alt Sin cupo
+        W->>DB: status = waiting_rate_limit
+        W->>R: release(Job, espera exacta + 1 s)
+    else Con cupo
+        W->>FD: GET /competitions/2021/teams (1 petición)
+        FD-->>W: equipos + plantillas
+        W->>DB: transacción: upsert competición, equipos, jugadores y pivote
+        W->>DB: status = completed
+    end
+    U->>API: GET /competitions/2021/import-status
+    API-->>U: completed (N equipos, M jugadores)
